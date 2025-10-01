@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>¡Me encontraste!</title>
+    <title>Zeus - ¡Me encontraste!</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
         
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #2d3436 0%, #000000 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -22,51 +22,89 @@
         }
         
         .card {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            max-width: 500px;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 30px;
+            box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+            max-width: 600px;
             width: 100%;
             overflow: hidden;
-            animation: slideIn 0.5s ease-out;
+            animation: slideIn 0.6s ease-out;
         }
         
         @keyframes slideIn {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(40px) scale(0.95);
             }
             to {
                 opacity: 1;
-                transform: translateY(0);
+                transform: translateY(0) scale(1);
             }
         }
         
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 30px;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #d4af37 100%);
+            padding: 40px 30px;
             text-align: center;
-            color: white;
+            color: #2d3436;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.2) 50%, transparent 70%);
+            animation: shine 3s infinite;
+        }
+        
+        @keyframes shine {
+            0%, 100% { transform: translateX(-100%); }
+            50% { transform: translateX(100%); }
         }
         
         .header h1 {
-            font-size: 2em;
+            font-size: 2.5em;
             margin-bottom: 10px;
+            font-weight: 700;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .header p {
+            font-size: 1.1em;
+            position: relative;
+            font-weight: 500;
         }
         
         .paw-icon {
-            font-size: 3em;
-            margin-bottom: 10px;
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
         
         .photo-container {
-            width: 200px;
-            height: 200px;
-            margin: 30px auto;
+            width: 220px;
+            height: 220px;
+            margin: 40px auto 30px;
             border-radius: 50%;
             overflow: hidden;
-            border: 5px solid #667eea;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border: 6px solid #d4af37;
+            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.3);
+            transition: transform 0.3s ease;
+        }
+        
+        .photo-container:hover {
+            transform: scale(1.05);
         }
         
         .photo-container img {
@@ -79,54 +117,165 @@
             padding: 30px;
         }
         
+        .section-title {
+            font-size: 1.5em;
+            color: #2d3436;
+            margin: 30px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #d4af37;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
         .info-item {
             margin-bottom: 20px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 10px;
-            border-left: 4px solid #667eea;
+            padding: 20px;
+            background: white;
+            border-radius: 15px;
+            border-left: 5px solid #d4af37;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .info-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.2);
         }
         
         .info-item label {
             display: block;
-            font-weight: bold;
-            color: #667eea;
-            margin-bottom: 5px;
-            font-size: 0.9em;
+            font-weight: 700;
+            color: #d4af37;
+            margin-bottom: 8px;
+            font-size: 0.95em;
             text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
         
         .info-item p {
-            color: #333;
+            color: #2d3436;
             font-size: 1.1em;
+            line-height: 1.6;
+        }
+        
+        .parents-container, .house-container {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .parent-card, .house-card {
+            flex: 1;
+            min-width: 200px;
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: transform 0.2s ease;
+        }
+        
+        .parent-card:hover, .house-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
+        }
+        
+        .parent-photo, .house-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            overflow: hidden;
+            border: 4px solid #d4af37;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .house-photo {
+            border-radius: 15px;
+            width: 100%;
+            height: 180px;
+        }
+        
+        .parent-photo img, .house-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .parent-name {
+            font-weight: 700;
+            color: #2d3436;
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+        
+        .parent-role {
+            color: #636e72;
+            font-size: 0.9em;
         }
         
         .contact-button {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
+            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
+            color: #2d3436;
             border: none;
-            padding: 15px 30px;
-            border-radius: 25px;
-            font-size: 1.1em;
+            padding: 18px 35px;
+            border-radius: 30px;
+            font-size: 1.15em;
+            font-weight: 700;
             cursor: pointer;
             width: 100%;
-            margin-top: 10px;
-            transition: transform 0.2s;
+            margin-top: 15px;
+            transition: all 0.3s ease;
             text-decoration: none;
             display: block;
             text-align: center;
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
         }
         
         .contact-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(212, 175, 55, 0.5);
+        }
+        
+        .whatsapp-button {
+            background: linear-gradient(135deg, #25D366 0%, #1ea952 100%);
+            color: white;
+        }
+        
+        .whatsapp-button:hover {
+            box-shadow: 0 12px 30px rgba(37, 211, 102, 0.5);
         }
         
         .footer {
             text-align: center;
-            padding: 20px;
-            color: #666;
-            font-size: 0.9em;
+            padding: 30px;
+            color: #636e72;
+            font-size: 1em;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+        
+        .footer p {
+            font-weight: 600;
+        }
+        
+        .emergency-badge {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 700;
+            margin-top: 10px;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
         }
     </style>
 </head>
@@ -136,15 +285,18 @@
             <div class="paw-icon">🐾</div>
             <h1>¡Me encontraste!</h1>
             <p>Gracias por ayudarme a volver a casa con mis papis</p>
+            <div class="emergency-badge">⚠️ POR FAVOR AYÚDAME</div>
         </div>
         
         <div class="photo-container">
-            <img src="./img/zeus.jpg" alt="Foto del gato" id="catPhoto">
+            <img src="./img/zeus.jpg" alt="Zeus" id="catPhoto">
         </div>
         
         <div class="info-section">
+            <h2 class="section-title">🐱 Sobre mí</h2>
+            
             <div class="info-item">
-                <label>🐱 Mi nombre es</label>
+                <label>Mi nombre es</label>
                 <p id="catName">Zeus</p>
             </div>
             
@@ -154,33 +306,70 @@
             </div>
             
             <div class="info-item">
-                <label>🏠 Vivo en</label>
+                <label>💉 Información médica</label>
+                <p id="medicalInfo">Todas mis vacunas están al día y no tengo alergias.</p>
+            </div>
+            
+            <h2 class="section-title">👨‍👩‍👦 Mis Papás</h2>
+            
+            <div class="parents-container">
+                <div class="parent-card">
+                    <div class="parent-photo">
+                        <img src="./img/papi.jpg" alt="Papi">
+                    </div>
+                    <div class="parent-name">Luciano</div>
+                    <div class="parent-role">Mi Papi 👨</div>
+                </div>
+                
+                <div class="parent-card">
+                    <div class="parent-photo">
+                        <img src="./img/mami.jpg" alt="Mami">
+                    </div>
+                    <div class="parent-name">Georgina</div>
+                    <div class="parent-role">Mi Mami 👩</div>
+                </div>
+            </div>
+            
+            <h2 class="section-title">🏠 Mi Casa</h2>
+            
+            <div class="info-item">
+                <label>📍 Dirección</label>
                 <p id="address">Calle 207 Nº 230 - Avellaneda - Santa Fe</p>
             </div>
             
-            <div class="info-item">
-                <label>📞 Teléfono de mi papi</label>
-                <p id="phone">3482 312178</p>
+            <div class="house-container">
+                <div class="house-card">
+                    <div class="house-photo">
+                        <img src="./img/casa.jpg" alt="Nuestra casa">
+                    </div>
+                    <p style="margin-top: 10px; color: #636e72; font-size: 0.9em;">
+                        Esta es mi casita, ¡seguro la reconoces!
+                    </p>
+                </div>
             </div>
             
+            <h2 class="section-title">📞 Contacto de Emergencia</h2>
+            
             <div class="info-item">
-                <label>💉 Información médica</label>
-                <p id="medicalInfo">Todas mis vacunas estan al dia y no tengo alergias.</p>
+                <label>📱 Teléfono</label>
+                <p id="phone">3482 312178</p>
             </div>
             
             <a href="tel:3482312178" class="contact-button">
                 📞 Llamar ahora
             </a>
             
-            <a href="https://wa.me/5493482312178" class="contact-button" style="background: #25D366; margin-top: 10px;">
-                💬 WhatsApp
+            <a href="https://wa.me/5493482312178" class="contact-button whatsapp-button">
+                💬 Escribir por WhatsApp
             </a>
         </div>
         
         <div class="footer">
-            <p>💜 Gracias por cuidar a mi gatito</p>
+            <p>💛 Gracias por cuidar a Zeus</p>
+            <p style="font-size: 0.85em; margin-top: 10px; color: #95a5a6;">
+                Mis papás te estarán eternamente agradecidos
+            </p>
         </div>
     </div>
 </body>
-
 </html>
