@@ -3,377 +3,343 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zeus - ¡Me encontraste!</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #2d3436 0%, #000000 100%);
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 20px;
-        }
-        
-        .card {
-            background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
-            border-radius: 30px;
-            box-shadow: 0 30px 80px rgba(0,0,0,0.5);
-            max-width: 600px;
-            width: 100%;
-            overflow: hidden;
-            animation: slideIn 0.6s ease-out;
-        }
-        
-        @keyframes slideIn {
-            from {
-                opacity: 0;
-                transform: translateY(40px) scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-        
-        .header {
-            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 50%, #d4af37 100%);
-            padding: 40px 30px;
-            text-align: center;
-            color: #2d3436;
-            position: relative;
-            overflow: hidden;
-        }
-        
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.2) 50%, transparent 70%);
-            animation: shine 3s infinite;
-        }
-        
-        @keyframes shine {
-            0%, 100% { transform: translateX(-100%); }
-            50% { transform: translateX(100%); }
-        }
-        
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            font-weight: 700;
-            position: relative;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
-        }
-        
-        .header p {
-            font-size: 1.1em;
-            position: relative;
-            font-weight: 500;
-        }
-        
-        .paw-icon {
-            font-size: 3.5em;
-            margin-bottom: 15px;
-            animation: bounce 2s infinite;
-        }
-        
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-        
-        .photo-container {
-            width: 220px;
-            height: 220px;
-            margin: 40px auto 30px;
-            border-radius: 50%;
-            overflow: hidden;
-            border: 6px solid #d4af37;
-            box-shadow: 0 15px 40px rgba(212, 175, 55, 0.3);
-            transition: transform 0.3s ease;
-        }
-        
-        .photo-container:hover {
-            transform: scale(1.05);
-        }
-        
-        .photo-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .info-section {
-            padding: 30px;
-        }
-        
-        .section-title {
-            font-size: 1.5em;
-            color: #2d3436;
-            margin: 30px 0 20px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #d4af37;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .info-item {
-            margin-bottom: 20px;
-            padding: 20px;
-            background: white;
-            border-radius: 15px;
-            border-left: 5px solid #d4af37;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-        
-        .info-item:hover {
-            transform: translateX(5px);
-            box-shadow: 0 8px 25px rgba(212, 175, 55, 0.2);
-        }
-        
-        .info-item label {
-            display: block;
-            font-weight: 700;
-            color: #d4af37;
-            margin-bottom: 8px;
-            font-size: 0.95em;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        
-        .info-item p {
-            color: #2d3436;
-            font-size: 1.1em;
-            line-height: 1.6;
-        }
-        
-        .parents-container, .house-container {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .parent-card, .house-card {
-            flex: 1;
-            min-width: 200px;
-            background: white;
-            border-radius: 15px;
-            padding: 20px;
-            text-align: center;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
-            transition: transform 0.2s ease;
-        }
-        
-        .parent-card:hover, .house-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(212, 175, 55, 0.2);
-        }
-        
-        .parent-photo, .house-photo {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            margin: 0 auto 15px;
-            overflow: hidden;
-            border: 4px solid #d4af37;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        
-        .house-photo {
-            border-radius: 15px;
-            width: 100%;
-            height: 180px;
-        }
-        
-        .parent-photo img, .house-photo img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        .parent-name {
-            font-weight: 700;
-            color: #2d3436;
-            font-size: 1.1em;
-            margin-bottom: 5px;
-        }
-        
-        .parent-role {
-            color: #636e72;
-            font-size: 0.9em;
-        }
-        
-        .contact-button {
-            background: linear-gradient(135deg, #d4af37 0%, #f4d03f 100%);
-            color: #2d3436;
-            border: none;
-            padding: 18px 35px;
-            border-radius: 30px;
-            font-size: 1.15em;
-            font-weight: 700;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 15px;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: block;
-            text-align: center;
-            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.3);
-        }
-        
-        .contact-button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 30px rgba(212, 175, 55, 0.5);
-        }
-        
-        .whatsapp-button {
-            background: linear-gradient(135deg, #25D366 0%, #1ea952 100%);
-            color: white;
-        }
-        
-        .whatsapp-button:hover {
-            box-shadow: 0 12px 30px rgba(37, 211, 102, 0.5);
-        }
-        
-        .footer {
-            text-align: center;
-            padding: 30px;
-            color: #636e72;
-            font-size: 1em;
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-        }
-        
-        .footer p {
-            font-weight: 600;
-        }
-        
-        .emergency-badge {
-            display: inline-block;
-            background: #e74c3c;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: 700;
-            margin-top: 10px;
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-    </style>
+    <title id="pageTitle">¡Me encontraste!</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="card">
         <div class="header">
-            <div class="paw-icon">🐾</div>
+            <div class="paw-icon" id="headerIcon">🐾</div>
             <h1>¡Me encontraste!</h1>
-            <p>Gracias por ayudarme a volver a casa con mis papis</p>
+            <p id="headerMessage">Gracias por ayudarme a volver a casa</p>
             <div class="emergency-badge">⚠️ POR FAVOR AYÚDAME</div>
         </div>
         
         <div class="photo-container">
-            <img src="./img/zeus.jpg" alt="Zeus" id="catPhoto">
+            <img src="./img/zeus.jpg" alt="Mascota" id="mainPhoto">
         </div>
         
         <div class="info-section">
-            <h2 class="section-title">🐱 Sobre mí</h2>
+            <h2 class="section-title"><span id="petTypeIcon">🐱</span> Sobre mí</h2>
             
             <div class="info-item">
                 <label>Mi nombre es</label>
-                <p id="catName">Zeus</p>
+                <p id="petName">Zeus</p>
             </div>
             
             <div class="info-item">
                 <label>🎂 Edad</label>
-                <p id="catAge">1 año</p>
+                <p id="petAge">1 año</p>
             </div>
             
             <div class="info-item">
                 <label>💉 Información médica</label>
-                <p id="medicalInfo">Todas mis vacunas están al día y no tengo alergias.</p>
+                <p id="medicalInfo">Todas mis vacunas están al día.</p>
             </div>
-            
-            <h2 class="section-title">👨‍👩‍👦 Mis Papás</h2>
-            
-            <div class="parents-container">
-                <div class="parent-card">
-                    <div class="parent-photo">
-                        <img src="./img/papi.jpg" alt="Papi">
-                    </div>
-                    <div class="parent-name">Luciano</div>
-                    <div class="parent-role">Mi Papi 👨</div>
-                </div>
-                
-                <div class="parent-card">
-                    <div class="parent-photo">
-                        <img src="./img/mami.jpg" alt="Mami">
-                    </div>
-                    <div class="parent-name">Georgina</div>
-                    <div class="parent-role">Mi Mami 👩</div>
-                </div>
+
+            <!-- Seccion comportamiento -->
+            <div class="info-item">
+                <label>🎭 Comportamiento</label>
+                <p id="behaviorDescription">Es importante que sepas cómo me comporto:</p>
+                <div class="behavior-tags" id="behaviorTags"></div>
             </div>
+
+            <!-- Seccion galeria -->
+            <h2 class="section-title">📸 Más fotos para identificarme</h2>
+            <div class="gallery-grid" id="photoGallery"></div>
             
+            <!-- Seccion duenios -->
+            <h2 class="section-title">👨‍👩‍👦 Mis Dueños</h2>
+            <div class="parents-container" id="ownersContainer"></div>
+            
+            <!-- Seccion direccion -->
             <h2 class="section-title">🏠 Mi Casa</h2>
-            
             <div class="info-item">
                 <label>📍 Dirección</label>
                 <p id="address">Calle 207 Nº 136 - Avellaneda - Santa Fe</p>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3485.945433005091!2d-59.66784632445595!3d-29.10729228845458!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x944eb0a4811b9797%3A0xe730c2e0bb2a35bc!2sC.%20207%20136%2C%20S3561%20Avellaneda%2C%20Santa%20Fe!5e0!3m2!1ses!2sar!4v1764368577343!5m2!1ses!2sar" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
             
-            <div class="house-container">
-                <div class="house-card">
-                    <div class="house-photo">
-                        <img src="./img/casa.jpg" alt="Nuestra casa">
-                    </div>
-                    <p style="margin-top: 10px; color: #636e72; font-size: 0.9em;">
-                        Esta es mi casita, ¡seguro la reconoces!
-                    </p>
-                </div>
+            <div class="house-container" id="houseContainer"></div>
+
+            <!-- Seccion avistamientos -->
+            <h2 class="section-title">📍 Últimos avistamientos</h2>
+            <div id="sightingsContainer">
+                <div class="no-sightings">Aún no hay avistamientos registrados</div>
             </div>
             
-            <h2 class="section-title">📞 Contacto de Emergencia</h2>
+            <!-- Boton Geolocalizacion -->
+            <button class="contact-button location-button" onclick="reportSighting()">
+                📍 Reportar mi ubicación actual
+            </button>
+
+            <div id="successMessage" class="success-message">
+                ✅ ¡Ubicación reportada! Los dueños han sido notificados.
+            </div>
+            
+            <!-- Seccion contacto -->
+            <h2 class="section-title">📞 Contactos de Emergencia</h2>
             
             <div class="info-item">
-                <label>📱 Teléfono</label>
+                <label>📱 Teléfono de mi papi</label>
                 <p id="phone">3482 312178</p>
             </div>
+
+                        <div class="info-item">
+                <label>📱 Teléfono de mi mami</label>
+                <p id="phone">3482 308288</p>
+            </div>
             
-            <a href="tel:3482312178" class="contact-button">
+            <a href="#" id="callButton" class="contact-button">
                 📞 Llamar ahora
             </a>
             
-            <a href="https://wa.me/5493482312178?text=hola,%20encontre%20a%20Zeus!" class="contact-button whatsapp-button">
+            <a href="#" id="whatsappButton" class="contact-button whatsapp-button">
                 💬 Escribir por WhatsApp
             </a>
         </div>
         
         <div class="footer">
-            <p>💛 Gracias por cuidar a Zeus</p>
-            <p style="font-size: 0.85em; margin-top: 10px; color: #95a5a6;">
-                Mis papis van a estar muy agradecidos!
+            <p id="footerMessage">💛 Gracias por cuidarme</p>
+            <p style="font-size: 0.85em; margin-top: 10px; color: #95a5a6;" id="footerSubMessage">
+                Mis dueños estarán muy agradecidos
             </p>
         </div>
     </div>
+
+    <!-- Image Modal -->
+    <div class="modal" id="imageModal" onclick="closeModal()">
+        <span class="modal-close">&times;</span>
+        <img class="modal-content" id="modalImage">
+    </div>
+
+    <script>
+        // ===== CONFIGURACIÓN/EDICION PARA CADA MASCOTA =====
+        const CONFIG = {
+            petInfo: {
+                name: "Zeus",
+                type: "cat", // cat, dog, bird, rabbit, edgehog, other
+                age: "1 año",
+                medicalInfo: "Todas mis vacunas están al día y no tengo alergias.",
+                behaviorDescription: "Es importante que sepas cómo me comporto:",
+                behaviors: [
+                    "Amigable con personas",
+                    "Puede asustarse con ruidos fuertes",
+                    "Responde a su nombre",
+                    "Le gusta esconderse en lugares altos",
+                    "Se deja alzar"
+                ]
+            },
+            images: {
+                mainPhoto: "./img/zeus1.jpg",
+                gallery: [
+                    "./img/zeus2.jpg",
+                    "./img/zeus3.jpg",
+                    "./img/zeus4.jpg",
+                    "./img/zeus1.jpg"
+                ],
+                housePhoto: "./img/casa.jpg"
+            },
+            owners: [
+                {
+                    name: "Luciano",
+                    role: "Dueño 👨",
+                    photo: "./img/papi.jpg"
+                },
+                {
+                    name: "Georgina",
+                    role: "Dueña 👩",
+                    photo: "./img/mami.jpg"
+                }
+            ],
+            contact: {
+                phone: "3482312178",
+                phoneFormatted: "3482 312178",
+                countryCode: "54", // Argentina
+                address: "Calle 207 Nº 136 - Avellaneda - Santa Fe"
+            },
+            messages: {
+                header: "Gracias por ayudarme a volver a casa",
+                footer: "💛 Gracias por cuidarme",
+                footerSub: "Mis dueños estarán muy agradecidos"
+            }
+        };
+
+        // ===== FUNCIONES DE INICIALIZACIÓN =====
+        function initializePage() {
+            // icono mascota
+            const icons = {
+                cat: "🐱",
+                dog: "🐶",
+                bird: "🐦",
+                rabbit: "🐰",
+                edgehog: "🦔",
+                horse: "🐴",
+                other: "🐾"
+            };
+            document.getElementById('headerIcon').textContent = icons[CONFIG.petInfo.type] || icons.other;
+            document.getElementById('petTypeIcon').textContent = icons[CONFIG.petInfo.type] || icons.other;
+            
+            // Set basic info
+            document.getElementById('petName').textContent = CONFIG.petInfo.name;
+            document.getElementById('petAge').textContent = CONFIG.petInfo.age;
+            document.getElementById('medicalInfo').textContent = CONFIG.petInfo.medicalInfo;
+            document.getElementById('behaviorDescription').textContent = CONFIG.petInfo.behaviorDescription;
+            document.getElementById('address').textContent = CONFIG.contact.address;
+            document.getElementById('phone').textContent = CONFIG.contact.phoneFormatted;
+            document.getElementById('headerMessage').textContent = CONFIG.messages.header;
+            document.getElementById('footerMessage').textContent = CONFIG.messages.footer;
+            document.getElementById('footerSubMessage').textContent = CONFIG.messages.footerSub;
+            document.getElementById('mainPhoto').src = CONFIG.images.mainPhoto;
+            document.getElementById('mainPhoto').alt = CONFIG.petInfo.name;
+            document.title = `${CONFIG.petInfo.name} - ¡Me encontraste!`;
+            
+            // Set behavior tags
+            const behaviorContainer = document.getElementById('behaviorTags');
+            CONFIG.petInfo.behaviors.forEach(behavior => {
+                const tag = document.createElement('span');
+                tag.className = 'behavior-tag';
+                tag.textContent = behavior;
+                behaviorContainer.appendChild(tag);
+            });
+            
+            // Set gallery
+            const gallery = document.getElementById('photoGallery');
+            CONFIG.images.gallery.forEach((img, index) => {
+                const item = document.createElement('div');
+                item.className = 'gallery-item';
+                item.innerHTML = `<img src="${img}" alt="${CONFIG.petInfo.name} - Foto ${index + 1}">`;
+                item.onclick = () => openModal(img);
+                gallery.appendChild(item);
+            });
+            
+            // Set owners
+            const ownersContainer = document.getElementById('ownersContainer');
+            CONFIG.owners.forEach(owner => {
+                const card = document.createElement('div');
+                card.className = 'parent-card';
+                card.innerHTML = `
+                    <div class="parent-photo">
+                        <img src="${owner.photo}" alt="${owner.name}">
+                    </div>
+                    <div class="parent-name">${owner.name}</div>
+                    <div class="parent-role">${owner.role}</div>
+                `;
+                ownersContainer.appendChild(card);
+            });
+            
+            // Set house photo
+            if (CONFIG.images.housePhoto) {
+                const houseContainer = document.getElementById('houseContainer');
+                houseContainer.innerHTML = `
+                    <div class="house-card">
+                        <div class="house-photo">
+                            <img src="${CONFIG.images.housePhoto}" alt="Casa">
+                        </div>
+                        <p style="margin-top: 10px; color: #636e72; font-size: 0.9em;">
+                            Esta es mi casita, ¡seguro la reconoces!
+                        </p>
+                    </div>
+                `;
+            }
+            
+            // Set contact buttons
+            const phone = CONFIG.contact.phone;
+            const countryCode = CONFIG.contact.countryCode;
+            document.getElementById('callButton').href = `tel:${phone}`;
+            document.getElementById('whatsappButton').href = 
+                `https://wa.me/${countryCode}${phone}?text=Hola,%20encontré%20a%20${encodeURIComponent(CONFIG.petInfo.name)}!`;
+            
+            // Load sightings from localStorage
+            loadSightings();
+        }
+
+        // ===== GALLERY MODAL =====
+        function openModal(imgSrc) {
+            document.getElementById('imageModal').classList.add('active');
+            document.getElementById('modalImage').src = imgSrc;
+        }
+
+        function closeModal() {
+            document.getElementById('imageModal').classList.remove('active');
+        }
+
+        // ===== GEOLOCATION & SIGHTINGS =====
+        function reportSighting() {
+            if (!navigator.geolocation) {
+                alert('Tu navegador no soporta geolocalización');
+                return;
+            }
+
+            navigator.geolocation.getCurrentPosition(
+                (position) => {
+                    const sighting = {
+                        timestamp: new Date().toISOString(),
+                        latitude: position.coords.latitude,
+                        longitude: position.coords.longitude
+                    };
+                    
+                    saveSighting(sighting);
+                    showSuccessMessage();
+                    
+                    // Send to WhatsApp with location
+                    const phone = CONFIG.contact.phone;
+                    const countryCode = CONFIG.contact.countryCode;
+                    const message = `¡Hola! Encontré a ${CONFIG.petInfo.name}!\n\nUbicación: https://www.google.com/maps?q=${sighting.latitude},${sighting.longitude}\n\nFecha y hora: ${new Date(sighting.timestamp).toLocaleString('es-AR')}`;
+                    window.open(`https://wa.me/${countryCode}${phone}?text=${encodeURIComponent(message)}`, '_blank');
+                },
+                (error) => {
+                    alert('No se pudo obtener tu ubicación. Por favor, activa el GPS y los permisos de ubicación.');
+                }
+            );
+        }
+
+        function saveSighting(sighting) {
+            let sightings = JSON.parse(localStorage.getItem(`sightings_${CONFIG.petInfo.name}`) || '[]');
+            sightings.unshift(sighting);
+            // Keep only last 10 sightings
+            sightings = sightings.slice(0, 10);
+            localStorage.setItem(`sightings_${CONFIG.petInfo.name}`, JSON.stringify(sightings));
+            loadSightings();
+        }
+
+        function loadSightings() {
+            const sightings = JSON.parse(localStorage.getItem(`sightings_${CONFIG.petInfo.name}`) || '[]');
+            const container = document.getElementById('sightingsContainer');
+            
+            if (sightings.length === 0) {
+                container.innerHTML = '<div class="no-sightings">Aún no hay avistamientos registrados</div>';
+                return;
+            }
+            
+            container.innerHTML = sightings.map(s => {
+                const date = new Date(s.timestamp);
+                return `
+                    <div class="sighting-item">
+                        <div class="sighting-time">
+                            ${date.toLocaleDateString('es-AR')} a las ${date.toLocaleTimeString('es-AR')}
+                        </div>
+                        <div class="sighting-location">
+                            📍 <a href="https://www.google.com/maps?q=${s.latitude},${s.longitude}" 
+                                 target="_blank" style="color: #3498db; text-decoration: none;">
+                                Ver en Google Maps
+                            </a>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function showSuccessMessage() {
+            const msg = document.getElementById('successMessage');
+            msg.classList.add('show');
+            setTimeout(() => {
+                msg.classList.remove('show');
+            }, 5000);
+        }
+
+        // Initialize page on load
+        window.addEventListener('DOMContentLoaded', initializePage);
+    </script>
 </body>
 </html>
-
-
-
-
